@@ -1,0 +1,65 @@
+# ===============
+# Unity Specific
+# ===============
+
+# Folders to ignore
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Visual Studio
+.vscode/
+*.csproj
+*.sln
+*.suo
+*.user
+*.unityproj
+*.dll
+*.exe
+*.pdb
+*.mdb
+*.svd
+*.pidb
+*.suo
+*.userprefs
+*.csproj
+*.pidb
+*.unityproj
+*.booproj
+*.svd
+
+# Rider
+.idea/
+*.iml
+
+# Unity metadata
+/[Aa]ssets/[Ss]treaming[Aa]ssets/
+/[Aa]ssets/[Aa]ddressable[Aa]ssets*
+/[Aa]ssets/[Bb]undle[Aa]ssets*
+
+# Auto-generated files
+/[Aa]ssets/[Tt]extMeshPro/
+/[Aa]ssets/Plugins/
+
+# Exclude logs
+*.log
+*.bak
+
+# Unity Cloud Build
+/[Bb]uilds
+
+# Prevent committing packages cache
+/[Pp]ackages/*/package.json
+
+# Keep these essential directories
+!Assets/
+!Packages/
+!ProjectSettings/
