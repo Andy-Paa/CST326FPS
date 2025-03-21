@@ -4,21 +4,25 @@ using System.Collections.Generic;
 
 public class Weapon : MonoBehaviour
 {
-    public Camera playerCamera;
+    // public Camera playerCamera;
     public bool isShooting, readyToShoot;
     public bool allowReset = true;
-    public float timeBetweenShots = 0.1f;
+    public float timeBetweenShots = 0.09f;
 
     public int bulletsPerBurst = 5;
-    public float timeBetweenBursts = 0.5f;
+    public float timeBetweenBursts = 0.02f;
     public int currentBurst;
 
-    public float spread = 0.1f;
+    public float spread = 0.3f;
 
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public float bulletVelocity = 30;
+    public float bulletVelocity = 100;
     public float bulletPrefabLifeTime = 3f;
+
+    public GameObject muzzleEffect;
+
+    private Animator animator;
 
     public enum ShootingMode { Auto, Burst, Single };
     public ShootingMode currentShootingMode;
@@ -27,6 +31,7 @@ public class Weapon : MonoBehaviour
     {
         readyToShoot = true;
         currentBurst = bulletsPerBurst;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -48,6 +53,10 @@ public class Weapon : MonoBehaviour
     
 
     private void FireWeapon(){
+        muzzleEffect.GetComponent<ParticleSystem>().Play();
+        animator.SetTrigger("RECOIL");
+        SoundMng.Instance.vectorShooting.Play();
+
         readyToShoot = false;
 
         Vector3 shootingDirection = CalculateSpread().normalized;
@@ -76,7 +85,7 @@ public class Weapon : MonoBehaviour
     }
 
     public Vector3 CalculateSpread(){
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         Vector3 targetPoint;
         if(Physics.Raycast(ray, out hit)){
