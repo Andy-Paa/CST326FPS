@@ -212,11 +212,11 @@ MonoBehaviour:
   isShooting: 0
   readyToShoot: 1
   allowReset: 1
-  timeBetweenShots: 0.1
+  timeBetweenShots: 0.2
   bulletsPerBurst: 5
-  timeBetweenBursts: 0.03
+  timeBetweenBursts: 0.06
   currentBurst: 0
-  spread: 0.1
+  spread: 0.2
   bulletPrefab: {fileID: 3216777426962840085, guid: 69ee9af87e2b35e4d805deecf9311588, type: 3}
   bulletSpawn: {fileID: 0}
   bulletVelocity: 100
