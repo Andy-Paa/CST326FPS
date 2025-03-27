@@ -1,5 +1,7 @@
 using UnityEngine;
 using static Weapon;
+using static ammoBox;
+using static Weaponmng;
 using System.Collections.Generic;
 
 public class Weaponmng : MonoBehaviour
@@ -9,6 +11,10 @@ public class Weaponmng : MonoBehaviour
     public List<GameObject> weaponSlots;
 
     public GameObject currentWeapon;
+
+    [Header("Ammo")]
+    public int lightAmmo = 0;
+    public int energyAmmo = 0;
 
     private void Awake()
     {
@@ -76,6 +82,19 @@ public class Weaponmng : MonoBehaviour
         weapon.animator.enabled = true;
     }
 
+    internal void PickUpAmmo(ammoBox ammo)
+    {
+        switch (ammo.ammoType)
+        {
+            case AmmoType.light_Ammo:
+                lightAmmo += ammo.ammoAmount;
+                break;
+            case AmmoType.energy_Ammo:
+                energyAmmo += ammo.ammoAmount;
+                break;
+        }
+    }
+
     private void DropCurrentWeapon(GameObject pickedweapon)
     {
         if (currentWeapon.transform.childCount > 0)
@@ -90,5 +109,39 @@ public class Weaponmng : MonoBehaviour
             weaponToDrop.transform.rotation = pickedweapon.transform.localRotation;
             weaponToDrop.transform.localScale = pickedweapon.transform.localScale;
         }
+    }
+
+    public int CheckAmmoLeftFor(Weapon.WeaponType weaponType){
+        switch(weaponType){
+            case Weapon.WeaponType.SIMG:
+                return energyAmmo;
+            case Weapon.WeaponType.VECTOR:
+                return lightAmmo;
+            default:
+                return 0;
+        }
+    }
+
+    internal void DecreaseAmmo(int decreasenumber, Weapon.WeaponType weaponType)
+    {
+        switch (weaponType)
+        {
+            case Weapon.WeaponType.VECTOR:
+                lightAmmo -= decreasenumber;
+                break;
+            case Weapon.WeaponType.SIMG:
+                energyAmmo -= decreasenumber;
+                break;
+        }
+    }
+
+    internal void PickUpThrowable(GameObject pickedThrowable)
+    {
+        DropCurrentWeapon(pickedThrowable);
+        pickedThrowable.transform.SetParent(currentWeapon.transform, false);
+        pickedThrowable.transform.localPosition = new Vector3(0, 0, 0);
+        pickedThrowable.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        pickedThrowable.transform.localScale = new Vector3(1, 1, 1);
+        pickedThrowable.GetComponent<Throwable>().isEquipped = true;
     }
 }

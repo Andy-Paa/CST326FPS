@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using static Weapon;
+using System.Collections.Generic;
 
 public class HUDMng : MonoBehaviour
 {    
@@ -24,6 +25,12 @@ public class HUDMng : MonoBehaviour
 
     public Sprite emptySlot;
 
+    public GameObject crosshair;
+
+    // 缓存字典
+    private Dictionary<Weapon.WeaponType, Sprite> ammoSprites = new Dictionary<Weapon.WeaponType, Sprite>();
+    private Dictionary<Weapon.WeaponType, Sprite> weaponSprites = new Dictionary<Weapon.WeaponType, Sprite>();
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -34,6 +41,20 @@ public class HUDMng : MonoBehaviour
         {
             Instance = this;
         }
+
+        // 预加载资源
+        PreloadSprites();
+    }
+
+    private void PreloadSprites()
+    {
+        // 预加载 Ammo Sprites
+        ammoSprites[Weapon.WeaponType.VECTOR] = Resources.Load<GameObject>("light_Ammo").GetComponent<SpriteRenderer>().sprite;
+        ammoSprites[Weapon.WeaponType.SIMG] = Resources.Load<GameObject>("energy_Ammo").GetComponent<SpriteRenderer>().sprite;
+
+        // 预加载 Weapon Sprites
+        weaponSprites[Weapon.WeaponType.VECTOR] = Resources.Load<GameObject>("Vectoricn").GetComponent<SpriteRenderer>().sprite;
+        weaponSprites[Weapon.WeaponType.SIMG] = Resources.Load<GameObject>("SIMGicn").GetComponent<SpriteRenderer>().sprite;
     }
 
     private void Update()
@@ -44,7 +65,7 @@ public class HUDMng : MonoBehaviour
         if (activeWeapon)
         {
             magazineAmmoUI.text = $"{activeWeapon.bulletsLeft / activeWeapon.bulletsPerBurst}";
-            totalAmmoUI.text = $"{activeWeapon.magazineSize / activeWeapon.bulletsPerBurst}";
+            totalAmmoUI.text = $"{Weaponmng.Instance.CheckAmmoLeftFor(activeWeapon.weaponType)}";
             Weapon.WeaponType model = activeWeapon.weaponType;
             ammoTypeUI.sprite = GetAmmoSprite(model);
             activeWeaponUI.sprite = GetWeaponSprite(model);
@@ -64,34 +85,17 @@ public class HUDMng : MonoBehaviour
             unActiveWeaponUI.sprite = emptySlot;
         }
     }
+
     private Sprite GetAmmoSprite(Weapon.WeaponType model)
     {
-        switch (model)
-        {
-            case Weapon.WeaponType.VECTOR:
-                return Instantiate(Resources.Load<GameObject>("light_Ammo")).GetComponent<SpriteRenderer>().sprite;
-
-            case Weapon.WeaponType.SIMG:
-                return Instantiate(Resources.Load<GameObject>("energy_Ammo")).GetComponent<SpriteRenderer>().sprite;
-
-            default:
-                return null;
-        }
+        // 从缓存中获取 Sprite
+        return ammoSprites.ContainsKey(model) ? ammoSprites[model] : null;
     }
 
     private Sprite GetWeaponSprite(Weapon.WeaponType model)
     {
-        switch (model)
-        {
-            case Weapon.WeaponType.VECTOR:
-                return Instantiate(Resources.Load<GameObject>("Vectoricn")).GetComponent<SpriteRenderer>().sprite;
-
-            case Weapon.WeaponType.SIMG:
-                return Instantiate(Resources.Load<GameObject>("SIMGicn")).GetComponent<SpriteRenderer>().sprite;
-
-            default:
-                return null;
-        }
+        // 从缓存中获取 Sprite
+        return weaponSprites.ContainsKey(model) ? weaponSprites[model] : null;
     }
 
     private GameObject GetUnActiveWeaponSprite()

@@ -5329,12 +5329,12 @@ Transform:
   m_GameObject: {fileID: 5342968811401179270}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.45471868, y: 0.23319116, z: 0.47874302}
-  m_LocalScale: {x: 9.108944, y: 3.8010051, z: 1.1577826}
+  m_LocalPosition: {x: 0.000377005, y: 0.0007169811, z: 0.41826487}
+  m_LocalScale: {x: 0.6502373, y: 0.6502373, z: 0.6502373}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 911070926949316564}
-  m_Father: {fileID: 6089130583377159590}
+  m_Father: {fileID: 1947466271919203577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5554421348468788851
 GameObject:
@@ -5375,6 +5375,7 @@ Transform:
   - {fileID: 2241543996391323262}
   - {fileID: 3057159085869995731}
   - {fileID: 6342839275663257384}
+  - {fileID: 7879711639678800476}
   m_Father: {fileID: 6089130583377159590}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5879315073266069789
@@ -5827,7 +5828,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6089130583377159590
 Transform:
   m_ObjectHideFlags: 0
@@ -5842,7 +5843,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1947466271919203577}
-  - {fileID: 7879711639678800476}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8377516211932686363
@@ -5931,6 +5931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc30997baea877048bee2a547b1da3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEquipped: 0
   isShooting: 0
   readyToShoot: 1
   allowReset: 1

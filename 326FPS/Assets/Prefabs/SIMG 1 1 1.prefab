@@ -5010,11 +5010,13 @@ MonoBehaviour:
   isShooting: 0
   readyToShoot: 1
   allowReset: 1
-  timeBetweenShots: 0.1
-  bulletsPerBurst: 3
+  timeBetweenShots: 0.05
+  bulletsPerBurst: 1
   timeBetweenBursts: 0.03
   currentBurst: 0
-  spread: 0.2
+  spread: 0
+  hipSpread: 0.3
+  adsSpread: 3
   bulletPrefab: {fileID: 3216777426962840085, guid: ace0f6263c3c7254ebfdd8e539484334, type: 3}
   bulletSpawn: {fileID: 5233559305326077458}
   bulletVelocity: 500
@@ -5029,6 +5031,7 @@ MonoBehaviour:
   weaponScale: {x: 1, y: 1, z: 1}
   weaponType: 0
   currentShootingMode: 0
+  ADS: 0
 --- !u!95 &784418999090403080
 Animator:
   serializedVersion: 7

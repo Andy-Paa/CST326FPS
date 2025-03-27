@@ -18,6 +18,8 @@ public class Weapon : MonoBehaviour
     public int currentBurst;
 
     public float spread = 0.3f;
+    public float hipSpread = 0.3f;
+    public float adsSpread = 0f;
 
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
@@ -43,12 +45,14 @@ public class Weapon : MonoBehaviour
     public enum ShootingMode { Auto, Burst, Single };
     public ShootingMode currentShootingMode;
 
+    public bool ADS;
+
     private void Awake()
     {
         readyToShoot = true;
         currentBurst = bulletsPerBurst;
         animator = GetComponent<Animator>();
-
+        spread = hipSpread;
         bulletsLeft = magazineSize;
     }
 
@@ -57,6 +61,20 @@ public class Weapon : MonoBehaviour
     {
         if (isEquipped)
         {
+            if (Input.GetMouseButtonDown(1))
+            {
+                ADS = true;
+                animator.SetBool("ADS", true);
+                HUDMng.Instance.crosshair.SetActive(false);
+                spread = adsSpread;
+            }
+            else if (Input.GetMouseButtonUp(1))
+            {
+                ADS = false;
+                animator.SetBool("ADS", false);
+                HUDMng.Instance.crosshair.SetActive(true);
+                spread = hipSpread;
+            }
             GetComponent<Outline>().enabled = false;
             if (bulletsLeft == 0 && isShooting){
             SoundMng.Instance.vectorEmpty.Play();
@@ -70,11 +88,11 @@ public class Weapon : MonoBehaviour
                 isShooting = Input.GetKeyDown(KeyCode.Mouse0);
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && isReloading==false && bulletsLeft < magazineSize){
+            if (Input.GetKeyDown(KeyCode.R) && isReloading==false && bulletsLeft < magazineSize && Weaponmng.Instance.CheckAmmoLeftFor(weaponType) > 0){
                 Reload();
             }
 
-            if (readyToShoot && isShooting==false && bulletsLeft <= 0 && isReloading==false){
+            if (readyToShoot && isShooting==false && bulletsLeft <= 0 && isReloading==false && Weaponmng.Instance.CheckAmmoLeftFor(weaponType) > 0){
                 Reload();
             }
 
@@ -93,8 +111,13 @@ public class Weapon : MonoBehaviour
     private void FireWeapon(){
         bulletsLeft--;
 
+        if (ADS){
+            animator.SetTrigger("RECOILADS");
+        } else {
+            animator.SetTrigger("RECOIL");
+        }
+
         muzzleEffect.GetComponent<ParticleSystem>().Play();
-        animator.SetTrigger("RECOIL");
         // SoundMng.Instance.vectorShooting.Play();
 
         SoundMng.Instance.PlayShootingSound(weaponType);
@@ -132,7 +155,15 @@ public class Weapon : MonoBehaviour
     }
 
     private void ReloadFinished(){
-        bulletsLeft = magazineSize;
+        
+        if (Weaponmng.Instance.CheckAmmoLeftFor(weaponType) > magazineSize){
+            bulletsLeft = magazineSize;
+            Weaponmng.Instance.DecreaseAmmo(bulletsLeft, weaponType);
+        } else {
+            bulletsLeft = Weaponmng.Instance.CheckAmmoLeftFor(weaponType);
+            Weaponmng.Instance.DecreaseAmmo(bulletsLeft, weaponType);
+        }
+
         isReloading = false;
     }
 

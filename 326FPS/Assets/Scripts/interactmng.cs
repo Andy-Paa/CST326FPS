@@ -5,6 +5,8 @@ public class interactmng : MonoBehaviour
     public static interactmng Instance { get; set; }
 
     public Weapon hoveredWeapon = null;
+    public ammoBox hoveredAmmoBox = null;
+    public Throwable hoveredThrowable = null;
 
     public GameObject interactText;
 
@@ -43,6 +45,42 @@ public class interactmng : MonoBehaviour
                 if (hoveredWeapon)
                 {
                     hoveredWeapon.GetComponent<Outline>().enabled = false;
+                }
+            }
+
+            if (hitObject.GetComponent<ammoBox>())
+            {
+                hoveredAmmoBox = hitObject.gameObject.GetComponent<ammoBox>();
+                hoveredAmmoBox.GetComponent<Outline>().enabled = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    Weaponmng.Instance.PickUpAmmo(hoveredAmmoBox);
+                    Destroy(hitObject.gameObject);
+                }
+            }
+            else
+            {
+                if (hoveredAmmoBox)
+                {
+                    hoveredAmmoBox.GetComponent<Outline>().enabled = false;
+                }
+            }
+
+            if (hitObject.GetComponent<Throwable>())
+            {
+                hoveredThrowable = hitObject.gameObject.GetComponent<Throwable>();
+                hoveredThrowable.GetComponent<Outline>().enabled = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    Weaponmng.Instance.PickUpThrowable(hitObject.gameObject);
+                    Destroy(hitObject.gameObject);
+                }
+            }
+            else
+            {
+                if (hoveredThrowable)
+                {
+                    hoveredThrowable.GetComponent<Outline>().enabled = false;
                 }
             }
         }

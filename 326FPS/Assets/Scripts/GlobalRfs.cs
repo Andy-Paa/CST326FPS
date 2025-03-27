@@ -4,6 +4,9 @@ public class GlobalRfs : MonoBehaviour
 {
     public static GlobalRfs Instance{get; set;}
     public GameObject bulletImpactEffectPrefab;
+    public GameObject grenadeExplosionEffect;
+
+    
     private void Awake()
     {
         if(Instance != null && Instance != this)

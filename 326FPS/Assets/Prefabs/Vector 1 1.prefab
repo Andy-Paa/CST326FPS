@@ -383,6 +383,7 @@ Transform:
   - {fileID: 5659323857496019008}
   - {fileID: 4874289920389027650}
   - {fileID: 2849886077139478133}
+  - {fileID: 5025278161822015007}
   m_Father: {fileID: 7980423664324496808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3800940561275250309
@@ -421,7 +422,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3103548796986272046}
-  - {fileID: 5025278161822015007}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.45}
 --- !u!33 &3198272133970906056
@@ -510,6 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc30997baea877048bee2a547b1da3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEquipped: 0
   isShooting: 0
   readyToShoot: 1
   allowReset: 1
@@ -517,7 +518,9 @@ MonoBehaviour:
   bulletsPerBurst: 3
   timeBetweenBursts: 0.06
   currentBurst: 0
-  spread: 0.2
+  spread: 0
+  hipSpread: 0.2
+  adsSpread: 0
   bulletPrefab: {fileID: 3216777426962840085, guid: 69ee9af87e2b35e4d805deecf9311588, type: 3}
   bulletSpawn: {fileID: 5025278161822015007}
   bulletVelocity: 100
@@ -532,6 +535,7 @@ MonoBehaviour:
   weaponScale: {x: 0.10978221, y: 0.2630883, z: 0.86372}
   weaponType: 1
   currentShootingMode: 0
+  ADS: 0
 --- !u!95 &1319472010383566474
 Animator:
   serializedVersion: 7
@@ -6073,10 +6077,10 @@ Transform:
   m_GameObject: {fileID: 8781380749430073773}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.45471868, y: 0.23319116, z: 0.47874302}
-  m_LocalScale: {x: 9.108944, y: 3.8010051, z: 1.1577826}
+  m_LocalPosition: {x: 0.00037701137, y: 0.00071702444, z: 0.4182648}
+  m_LocalScale: {x: 0.6502373, y: 0.6502373, z: 0.6502373}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2140912992402875785}
-  m_Father: {fileID: 7980423664324496808}
+  m_Father: {fileID: 3103548796986272046}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
