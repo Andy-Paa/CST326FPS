@@ -15,6 +15,10 @@ public class SoundMng : MonoBehaviour
     public AudioClip SIMGShootingClip;
     public AudioClip vectorShootingClip;
 
+    public AudioSource throwablesChannel;
+    public AudioClip grenadeSound;
+    public AudioClip smokeSound;
+
 
     private void Awake()
     {

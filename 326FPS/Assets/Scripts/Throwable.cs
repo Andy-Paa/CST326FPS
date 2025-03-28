@@ -12,7 +12,9 @@ public class Throwable : MonoBehaviour
 
     public enum ThrowableType
     {
-        Grenade
+        NONE,
+        SMOKE,
+        GRENADE
     }
 
     public ThrowableType throwableType;
@@ -78,9 +80,31 @@ public class Throwable : MonoBehaviour
     {
         switch (throwableType)
         {
-            case ThrowableType.Grenade:
+            case ThrowableType.GRENADE:
                 GrenadeEffect();
                 break;
+            case ThrowableType.SMOKE:
+                SmokeEffect();
+                break;
+        }
+    }
+
+    private void SmokeEffect()
+    {
+        GameObject smokeEffect = GlobalRfs.Instance.smokeEffect;
+        Instantiate(smokeEffect, transform.position, transform.rotation);
+
+        SoundMng.Instance.throwablesChannel.PlayOneShot(SoundMng.Instance.smokeSound);
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, damageRadius);
+        foreach (Collider nearbyObject in colliders)
+        {
+            // Example: Apply a debuff or obscure vision
+            // VisionObscurer vision = nearbyObject.GetComponent<VisionObscurer>();
+            // if (vision != null)
+            // {
+            //     vision.ObscureVision(5f); // Obscure vision for 5 seconds
+            // }
         }
     }
 
@@ -89,6 +113,8 @@ public class Throwable : MonoBehaviour
         GameObject explosionEffect = GlobalRfs.Instance.grenadeExplosionEffect;
         Instantiate(explosionEffect, transform.position, transform.rotation);
         
+        SoundMng.Instance.throwablesChannel.PlayOneShot(SoundMng.Instance.grenadeSound);
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, damageRadius);
         foreach (Collider nearbyObject in colliders)
         {

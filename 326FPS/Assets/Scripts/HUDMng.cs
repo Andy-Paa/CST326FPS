@@ -24,6 +24,7 @@ public class HUDMng : MonoBehaviour
     public TextMeshProUGUI tacticalAmountUI;
 
     public Sprite emptySlot;
+    public Sprite GreySlot;
 
     public GameObject crosshair;
 
@@ -84,6 +85,17 @@ public class HUDMng : MonoBehaviour
             activeWeaponUI.sprite = emptySlot;
             unActiveWeaponUI.sprite = emptySlot;
         }
+
+
+        if (Weaponmng.Instance.LethalsCount <= 0)
+        {
+            lethalUI.sprite = GreySlot;
+        }
+
+        if (Weaponmng.Instance.TacticalCount <= 0)
+        {
+            tacticalUI.sprite = GreySlot;
+        }
     }
 
     private Sprite GetAmmoSprite(Weapon.WeaponType model)
@@ -108,5 +120,26 @@ public class HUDMng : MonoBehaviour
             }
         }
         return null;
+    }
+
+    internal void UpdateThrowables()
+    {
+        lethalAmountUI.text = $"{Weaponmng.Instance.LethalsCount}";
+        tacticalAmountUI.text = $"{Weaponmng.Instance.TacticalCount}";
+
+        switch (Weaponmng.Instance.currentLethal)
+        {
+            case Throwable.ThrowableType.GRENADE:
+
+                lethalUI.sprite = Resources.Load<GameObject>("Grenade").GetComponent<SpriteRenderer>().sprite;
+                break;
+        }
+
+        switch (Weaponmng.Instance.currentTactical)
+        {
+            case Throwable.ThrowableType.SMOKE:
+                tacticalUI.sprite = Resources.Load<GameObject>("Smoke").GetComponent<SpriteRenderer>().sprite;
+                break;
+        }
     }
 }

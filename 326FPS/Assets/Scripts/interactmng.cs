@@ -72,8 +72,7 @@ public class interactmng : MonoBehaviour
                 hoveredThrowable.GetComponent<Outline>().enabled = true;
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    Weaponmng.Instance.PickUpThrowable(hitObject.gameObject);
-                    Destroy(hitObject.gameObject);
+                    Weaponmng.Instance.PickUpThrowable(hoveredThrowable);
                 }
             }
             else
