@@ -19,6 +19,17 @@ public class SoundMng : MonoBehaviour
     public AudioClip grenadeSound;
     public AudioClip smokeSound;
 
+    public AudioClip zombieAttack;
+    public AudioClip zombieDeath;
+    public AudioClip zombieHurt;
+
+    public AudioSource zombieChannel;
+
+    public AudioSource playerChannel;
+    public AudioClip playerDeath;
+    public AudioClip playerHurt;
+
+    public AudioClip gameover;
 
     private void Awake()
     {

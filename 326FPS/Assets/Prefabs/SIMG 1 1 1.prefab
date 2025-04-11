@@ -5007,6 +5007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEquipped: 0
+  weaponDamage: 8
   isShooting: 0
   readyToShoot: 1
   allowReset: 1

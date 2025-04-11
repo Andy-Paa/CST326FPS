@@ -6,6 +6,8 @@ public class GlobalRfs : MonoBehaviour
     public GameObject bulletImpactEffectPrefab;
     public GameObject grenadeExplosionEffect;
     public GameObject smokeEffect;
+
+    public GameObject bloodEffectPrefab;
     
     private void Awake()
     {

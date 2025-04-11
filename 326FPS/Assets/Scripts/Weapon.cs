@@ -7,6 +7,7 @@ using TMPro;
 public class Weapon : MonoBehaviour
 {
     public bool isEquipped;
+    public int weaponDamage = 10;
 
     // public Camera playerCamera;
     public bool isShooting, readyToShoot;
@@ -61,6 +62,12 @@ public class Weapon : MonoBehaviour
     {
         if (isEquipped)
         {
+
+            foreach (Transform child in transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("WeaponRender");
+            }
+
             if (Input.GetMouseButtonDown(1))
             {
                 ADS = true;
@@ -105,6 +112,13 @@ public class Weapon : MonoBehaviour
             //     ammoMng.Instance.ammoDisplay.text = $"{bulletsLeft/bulletsPerBurst}/{magazineSize/bulletsPerBurst}";
             // }
         }
+        else
+        {
+            foreach (Transform child in transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
+        }
     }
     
 
@@ -127,6 +141,9 @@ public class Weapon : MonoBehaviour
         Vector3 shootingDirection = CalculateSpread().normalized;
 
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
+
+        Bullet bul = bullet.GetComponent<Bullet>();
+        bul.bulletDamage = weaponDamage;
 
         bullet.transform.forward = shootingDirection;
 

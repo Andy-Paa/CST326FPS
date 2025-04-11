@@ -123,6 +123,11 @@ public class Throwable : MonoBehaviour
             {
                 rb.AddExplosionForce(explosionForce, transform.position, damageRadius);
             }
+
+            if (nearbyObject.gameObject.GetComponent<Enemy>())
+            {
+                nearbyObject.gameObject.GetComponent<Enemy>().TakeDamage(100);
+            }
             // Health health = nearbyObject.GetComponent<Health>();
             // if (health != null)
             // {

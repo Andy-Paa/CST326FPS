@@ -33,6 +33,11 @@ public class interactmng : MonoBehaviour
 
             if (hitObject.GetComponent<Weapon>() && hitObject.GetComponent<Weapon>().isEquipped == false)
             {
+                if (hoveredWeapon)
+                {
+                    hoveredWeapon.GetComponent<Outline>().enabled = false;
+                }
+
                 hoveredWeapon = hitObject.gameObject.GetComponent<Weapon>();
                 hoveredWeapon.GetComponent<Outline>().enabled = true;
                 if (Input.GetKeyDown(KeyCode.E))
@@ -50,6 +55,11 @@ public class interactmng : MonoBehaviour
 
             if (hitObject.GetComponent<ammoBox>())
             {
+                if (hoveredAmmoBox)
+                {
+                    hoveredAmmoBox.GetComponent<Outline>().enabled = false;
+                }
+
                 hoveredAmmoBox = hitObject.gameObject.GetComponent<ammoBox>();
                 hoveredAmmoBox.GetComponent<Outline>().enabled = true;
                 if (Input.GetKeyDown(KeyCode.E))
@@ -68,6 +78,11 @@ public class interactmng : MonoBehaviour
 
             if (hitObject.GetComponent<Throwable>())
             {
+                if (hoveredThrowable)
+                {
+                    hoveredThrowable.GetComponent<Outline>().enabled = false;
+                }
+                
                 hoveredThrowable = hitObject.gameObject.GetComponent<Throwable>();
                 hoveredThrowable.GetComponent<Outline>().enabled = true;
                 if (Input.GetKeyDown(KeyCode.E))
