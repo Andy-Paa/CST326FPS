@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     public int HP = 100;
     public GameObject bloodyScreen;
+    public GameObject weapon;
 
     public TextMeshProUGUI hpText;
     public GameObject gameOverText;
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
 
     private void PlayerDead()
     {
+        weapon.SetActive(false);
         SoundMng.Instance.playerChannel.clip = SoundMng.Instance.gameover;
         SoundMng.Instance.playerChannel.PlayDelayed(1f);
         GetComponent<MouseMovement>().enabled = false;
